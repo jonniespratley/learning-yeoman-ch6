@@ -32,6 +32,7 @@ JsblogGenerator = yeoman.generators.Base.extend({
 		}];
 		this.prompt(prompts, (function(props) {
 			this.someOption = props.someOption;
+			this.blogName = props.blogName;
 			done();
 		}).bind(this));
 	},
@@ -50,7 +51,7 @@ JsblogGenerator = yeoman.generators.Base.extend({
 		
 		//Subdirectory
 		this.mkdir('posts');
-		this.template('_index.md', 'posts/index.md');
+		//this.template('_index.md', 'posts/index.md');
 	},
 	projectfiles : function() {
 		this.copy("editorconfig", ".editorconfig");
