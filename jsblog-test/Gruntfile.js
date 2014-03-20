@@ -1,7 +1,5 @@
 // Generated on 2014-03-20 using generator-jsblog 0.0.1
 'use strict';
-var moment = require('moment');
-
 var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({
 	port : LIVERELOAD_PORT

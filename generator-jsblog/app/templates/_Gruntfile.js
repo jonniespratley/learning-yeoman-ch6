@@ -1,7 +1,5 @@
 // Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
 'use strict';
-var moment = require('moment');
-
 var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({
 	port : LIVERELOAD_PORT
@@ -21,7 +19,7 @@ module.exports = function(grunt) {
 				livereload : LIVERELOAD_PORT
 			},
 			livereload : {
-				files : ['index.html', 'posts/*.md'],
+				files : ['index.html'],
 				tasks : ['build']
 			}
 		},
@@ -48,7 +46,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('server', ['build', 'connect:livereload', 'open', 'watch']);
 
-	grunt.registerTask('build', 'Build your blog.', function() {
+	grunt.registerTask('build', 'Building the project.', function() {
 		console.log('running build');
 	});
 };
