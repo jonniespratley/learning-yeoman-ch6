@@ -51,10 +51,21 @@ JsblogGenerator = yeoman.generators.Base.extend({
         name: 'blogName',
         message: 'What is the name of your blog?',
         "default": 'Sample Blog'
+      }, {
+        type: 'confirm',
+        name: 'includeDefaultStyles',
+        message: 'Would you like to include some default styles (Including Bootstrap)?',
+        "default": false
+      }, {
+        type: 'confirm',
+        name: 'includeRequireJS',
+        message: 'Would you like to include RequireJS (for AMD support)?',
+        "default": false
       }
     ];
     return this.prompt(prompts, (function(props) {
       this.someOption = props.someOption;
+      this.includeRequireJS = props.includeRequireJS;
       this.blogName = props.blogName;
       done();
     }).bind(this));
@@ -63,11 +74,18 @@ JsblogGenerator = yeoman.generators.Base.extend({
   	app - This method creates the initial app files, the directory structure, package files,
   	configuration files, Gruntfiles etc. anything that needs to shell out the application should
   	be placed here.
+  	@copy takes files in templates directory and copys to project root folder.
+  	if no arguments are passed the generator instance is passed as an agrument,
+  		and it uses _ underscore templating library to process, so that means 
+  		you can use <%= _.capitalize(blogName) %> template rendering methods to 
+  		display data from the generator.
   */
 
   app: function() {
     this.mkdir("app");
     this.mkdir("app/templates");
+    this.mkdir("app/scripts");
+    this.mkdir("app/styles");
     this.copy("_config.json", "_config.json");
     this.copy("_package.json", "package.json");
     this.copy("_bower.json", "bower.json");
@@ -82,6 +100,16 @@ JsblogGenerator = yeoman.generators.Base.extend({
   projectfiles: function() {
     this.copy("editorconfig", ".editorconfig");
     return this.copy("jshintrc", ".jshintrc");
+  },
+  bootstrapRequireJs: function() {
+    if (this.includeRequireJS) {
+      return this.copy('_bootstrap.js', 'app/scripts/_bootstrap.js');
+    }
+  },
+  mainStyleSheet: function() {
+    if (this.includeDefaultStyles) {
+      return this.copy('_main.css', 'app/styles/_main.css');
+    }
   }
 });
 

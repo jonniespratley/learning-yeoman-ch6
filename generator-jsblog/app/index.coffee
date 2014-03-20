@@ -78,6 +78,7 @@ JsblogGenerator = yeoman.generators.Base.extend(
 		and it uses _ underscore templating library to process, so that means 
 		you can use <%= _.capitalize(blogName) %> template rendering methods to 
 		display data from the generator.
+		this.bowerInstall([ 'jquery', 'underscore' ], { save: true });
 	###
 	app: ->
 		@mkdir "app"
@@ -105,5 +106,53 @@ JsblogGenerator = yeoman.generators.Base.extend(
 	mainStyleSheet: ->
 		if @includeDefaultStyles
 			@copy '_main.css', 'app/styles/_main.css'
+	
+	writeIndex = ->
+				# prepare default content text
+				defaults = [
+					"HTML5 Boilerplate"
+					"Bootstrap"
+				]
+				contentText = [
+					" <div class=\"container\">"
+					"						 <div class=\"hero-unit\">"
+					"								 <h1>Allo!</h1>"
+					"								 <p>You now have</p>"
+					"								 <ul>"
+				]
+				unless @includeRequireJS
+					@indexFile = @appendScripts(@indexFile, "scripts/main.js", [
+						"components/jquery/jquery.js"
+						"scripts/main.js"
+					])
+					@indexFile = @appendFiles(
+						html: @indexFile
+						fileType: "js"
+						optimizedPath: "scripts/coffee.js"
+						sourceFileList: ["scripts/hello.js"]
+						searchPath: ".tmp"
+					)
+				if @includeRequireJS
+					defaults.push "RequireJS"
+				else
+					@mainJsFile = "console.log('Allo!');"
+
+				# iterate over defaults and create content string
+				defaults.forEach (el) ->
+					contentText.push "										<li>" + el + "</li>"
+					return
+
+				contentText = contentText.concat([
+					"								 </ul>"
+					"								 <p>installed.</p>"
+					"								 <h3>Enjoy coding! - Yeoman</h3>"
+					"						 </div>"
+					"				 </div>"
+					""
+				])
+
+				# append the default content
+				@indexFile = @indexFile.replace("<body>", "<body>\n" + contentText.join("\n"))
+				return
 )
 module.exports = JsblogGenerator
