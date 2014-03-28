@@ -86,7 +86,7 @@ Generator = yeoman.generators.Base.extend(
 		
 		#Custom libs
 		@copy "_bower.json", "bower.json"
-		@copy ".bowerrc", ".bowerrc"
+		@copy "bowerrc", ".bowerrc"
 		
 		#Custom tasks
 		@copy "_Gruntfile.js", "Gruntfile.js"
