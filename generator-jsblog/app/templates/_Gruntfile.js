@@ -13,6 +13,8 @@ module.exports = function(grunt) {
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 	
 	grunt.initConfig({
+		
+		//watch - This task will watch files and run tasks when files change.
 		watch : {
 			options : {
 				nospawn : true,
@@ -23,61 +25,48 @@ module.exports = function(grunt) {
 				tasks : ['build']
 			}
 		},
+		
+		//Server
 		connect : {
 			options : {
 				port : 9000,
-				base: './',
 				debug: true,
-				useAvailablePort: true,
-				// change this to '0.0.0.0' to access the server from outside
-				hostname : '127.0.0.1'
+				hostname : 'localhost'// change this to '0.0.0.0' to access the server from outside
 			},
 			livereload : {
 				options : {
 					middleware : function(connect) {
 						return [
 							lrSnippet, 
-							mountFolder(connect, './bower_components'),
 							mountFolder(connect, './')
 						];
 					}
 				}
 			}
 		},
+		
+		//Auto open browser
 		open : {
 			server : {
 				path : 'http://localhost:<%%= connect.options.port %>'
 			}
 		},
 
+		//bowerInstall - This installs bower_component packages into specified files.
 		bowerInstall : {
 			target : {
-				// Point to the files that should be updated when
 				src : [
-				'app/**/*.html',
-				// .html support...
-				//'app/views/**/*.jade',
-				// .jade support...
-				'app/styles/main.css',
-				// .scss & .sass support...
-				//'app/config.yml' 
-				// and .yml & .yaml support out of the box!
+					'app/**/*.html',
+					'app/styles/main.css',
 				],
-
-				// Optional:
-				// ---------
-				cwd : '',
 				dependencies : true,
-				devDependencies : false,
-				exclude : [],
-				fileTypes : {},
-				ignorePath : ''
+				devDependencies : false
 			}
 		}
-
 	});
 
-	grunt.registerTask('server', ['bowerInstall', 'build', 'connect:livereload', 'open', 'watch']);
+	//This is the serve task 
+	grunt.registerTask('serve', ['bowerInstall', 'build', 'connect:livereload', 'open', 'watch']);
 
 	grunt.registerTask('build', 'Building the project.', function() {
 		console.log('running build');

@@ -45,6 +45,27 @@ JsblogGenerator::app = ->
 	@copy '_main.css', 'app/styles/main.css'
 
 
+<<<<<<< HEAD
+=======
+	
+	#
+	#	 projectFiles - This method creates any project files needed for the application,
+	#	 such as .travis, .gitignore files, etc.
+	#	 
+	projectfiles: ->
+		@copy "editorconfig", ".editorconfig"
+		@copy "jshintrc", ".jshintrc"
+		
+		#Custom package
+		@copy "_package.json", "package.json"
+		
+		#Custom libs
+		@copy "_bower.json", "bower.json"
+		@copy "bowerrc", ".bowerrc"
+		
+		#Custom tasks
+		@copy "_Gruntfile.js", "Gruntfile.js"
+>>>>>>> 9086b73fb12e5624ea5c0b9854c5dc2b826f1e5d
 
 #
 #	 projectFiles - This method creates any project files needed for the application,
