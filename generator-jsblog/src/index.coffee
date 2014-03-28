@@ -28,19 +28,25 @@ JsblogGenerator::askFor = ->
 			default: 'My Blog'
 		,
 			type: 'input'
-			name: 'blogDesc'
-			message: 'What is your blog about?'
-			default: 'A blog about all things.'
+			name: 'featureTitle'
+			message: 'What is the feature?'
+			default: 'Modern Blog'
 		,
 			type: 'input'
-			name: 'blogImg'
-			message: 'What is your blog image?'
-			default: 'http://goo.gl/kZZ6dX'
+			name: 'featureDesc'
+			message: 'The feature description?'
+			default: 'A modern blog using modern tools & technologies.'
+		,
+			type: 'input'
+			name: 'featureImg'
+			message: 'The feature image?'
+			default: 'images/feature.png'
 	]
 	@prompt prompts, ((props) ->
 			@blogName = props.blogName
-			@blogDesc = props.blogDesc
-			@blogImg = props.blogImg
+			@featureTitle = props.featureTitle
+			@featureDesc = props.featureDesc
+			@featureImg = props.featureImg
 			done()
 		).bind(this)
 
@@ -48,13 +54,14 @@ JsblogGenerator::askFor = ->
 #appFolders - Create all of the application specific folders.
 JsblogGenerator::appFolders = ->
 	@mkdir 'app'
-	@mkdir 'app/templates'
+	@mkdir 'app/images'
 	@mkdir 'app/scripts'
 	@mkdir 'app/styles'
 	
 	
 #appFiles - Copy all of the application specific files.
 JsblogGenerator::appFiles = ->
+	@copy 'feature.png', 'app/images/feature.png'
 	@template '_index.html', 'app/index.html'
 	@template '_main.js', 'app/scripts/main.js'
 	@template '_main.css', 'app/styles/main.css'
@@ -63,6 +70,7 @@ JsblogGenerator::appFiles = ->
 JsblogGenerator::projectfiles = ->
 	@copy 'editorconfig', '.editorconfig'
 	@copy 'jshintrc', '.jshintrc'
+	
 	@template '_config.json', 'config.json'
 	@template '_package.json', 'package.json'
 	@template '_Gruntfile.js', 'Gruntfile.js'

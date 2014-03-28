@@ -34,32 +34,39 @@
         "default": 'My Blog'
       }, {
         type: 'input',
-        name: 'blogDesc',
-        message: 'What is your blog about?',
-        "default": 'A blog about all things.'
+        name: 'featureTitle',
+        message: 'What is the feature?',
+        "default": 'Modern Blog'
       }, {
         type: 'input',
-        name: 'blogImg',
-        message: 'What is your blog image?',
-        "default": 'http://goo.gl/kZZ6dX'
+        name: 'featureDesc',
+        message: 'The feature description?',
+        "default": 'A modern blog using modern tools & technologies.'
+      }, {
+        type: 'input',
+        name: 'featureImg',
+        message: 'The feature image?',
+        "default": 'images/feature.png'
       }
     ];
     return this.prompt(prompts, (function(props) {
       this.blogName = props.blogName;
-      this.blogDesc = props.blogDesc;
-      this.blogImg = props.blogImg;
+      this.featureTitle = props.featureTitle;
+      this.featureDesc = props.featureDesc;
+      this.featureImg = props.featureImg;
       return done();
     }).bind(this));
   };
 
   JsblogGenerator.prototype.appFolders = function() {
     this.mkdir('app');
-    this.mkdir('app/templates');
+    this.mkdir('app/images');
     this.mkdir('app/scripts');
     return this.mkdir('app/styles');
   };
 
   JsblogGenerator.prototype.appFiles = function() {
+    this.copy('feature.png', 'app/images/feature.png');
     this.template('_index.html', 'app/index.html');
     this.template('_main.js', 'app/scripts/main.js');
     return this.template('_main.css', 'app/styles/main.css');
