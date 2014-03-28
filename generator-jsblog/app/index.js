@@ -11,106 +11,103 @@ yeoman = require("yeoman-generator");
 chalk = require("chalk");
 
 /*
-js-blog-generator - This is an example generator.
-*/
-
+ js-blog-generator - This is an example generator.
+ */
 
 JsblogGenerator = yeoman.generators.Base.extend({
-  /*
-  	init - This method initializes the generator by loading the package.json file
-  	and adding an event listener to the 'end' event of the generator.
-  */
+	/*
+	 init - This method initializes the generator by loading the package.json file
+	 and adding an event listener to the 'end' event of the generator.
+	 */
 
-  init: function() {
-    this.pkg = require("../package.json");
-    return this.on("end", function() {
-      if (!this.options["skip-install"]) {
-        this.installDependencies();
-      }
-    });
-  },
-  /*
-  	askFor - This method asks questions to the user by displaying prompts.
-  	After the user enters there value, the callback then loops over each property and
-  	sets the name = value on this generator.
-  */
+	init : function() {
+		this.pkg = require("../package.json");
+		return this.on("end", function() {
+			if (!this.options["skip-install"]) {
+				this.installDependencies();
+			}
+		});
+	},
+	/*
+	 askFor - This method asks questions to the user by displaying prompts.
+	 After the user enters there value, the callback then loops over each property and
+	 sets the name = value on this generator.
+	 */
 
-  askFor: function() {
-    var done, prompts;
-    done = this.async();
-    this.log(this.yeoman);
-    this.log(chalk.magenta("You're using the fantastic Jsblog generator."));
-    prompts = [
-      {
-        type: "confirm",
-        name: "someOption",
-        message: "Would you like to enable this option?",
-        "default": true
-      }, {
-        type: 'input',
-        name: 'blogName',
-        message: 'What is the name of your blog?',
-        "default": 'Sample Blog'
-      }, {
-        type: 'confirm',
-        name: 'includeDefaultStyles',
-        message: 'Would you like to include some default styles (Including Bootstrap)?',
-        "default": false
-      }, {
-        type: 'confirm',
-        name: 'includeRequireJS',
-        message: 'Would you like to include RequireJS (for AMD support)?',
-        "default": false
-      }
-    ];
-    return this.prompt(prompts, (function(props) {
-      this.someOption = props.someOption;
-      this.includeRequireJS = props.includeRequireJS;
-      this.blogName = props.blogName;
-      done();
-    }).bind(this));
-  },
-  /*
-  	app - This method creates the initial app files, the directory structure, package files,
-  	configuration files, Gruntfiles etc. anything that needs to shell out the application should
-  	be placed here.
-  	@copy takes files in templates directory and copys to project root folder.
-  	if no arguments are passed the generator instance is passed as an agrument,
-  		and it uses _ underscore templating library to process, so that means 
-  		you can use <%= _.capitalize(blogName) %> template rendering methods to 
-  		display data from the generator.
-  */
+	askFor : function() {
+		var done, prompts;
+		done = this.async();
+		this.log(this.yeoman);
+		this.log(chalk.magenta("You're using the fantastic Jsblog generator."));
+		prompts = [{
+			type : "confirm",
+			name : "someOption",
+			message : "Would you like to enable this option?",
+			"default" : true
+		}, {
+			type : 'input',
+			name : 'blogName',
+			message : 'What is the name of your blog?',
+			"default" : 'Sample Blog'
+		}, {
+			type : 'confirm',
+			name : 'includeDefaultStyles',
+			message : 'Would you like to include some default styles (Including Bootstrap)?',
+			"default" : false
+		}, {
+			type : 'confirm',
+			name : 'includeRequireJS',
+			message : 'Would you like to include RequireJS (for AMD support)?',
+			"default" : false
+		}];
+		return this.prompt(prompts, (function(props) {
+			this.someOption = props.someOption;
+			this.includeRequireJS = props.includeRequireJS;
+			this.blogName = props.blogName;
+			done();
+		}).bind(this));
+	},
+	/*
+	 app - This method creates the initial app files, the directory structure, package files,
+	 configuration files, Gruntfiles etc. anything that needs to shell out the application should
+	 be placed here.
+	 @copy takes files in templates directory and copys to project root folder.
+	 if no arguments are passed the generator instance is passed as an agrument,
+	 and it uses _ underscore templating library to process, so that means
+	 you can use <%= _.capitalize(blogName) %> template rendering methods to
+	 display data from the generator.
+	 */
 
-  app: function() {
-    this.mkdir("app");
-    this.mkdir("app/templates");
-    this.mkdir("app/scripts");
-    this.mkdir("app/styles");
-    this.copy("_config.json", "_config.json");
-    this.copy("_package.json", "package.json");
-    this.copy("_bower.json", "bower.json");
-    this.copy('_Gruntfile.js', 'Gruntfile.js');
-    return this.copy('_index.html', 'index.html');
-  },
-  /*
-  	projectFiles - This method creates any project files needed for the application, 
-  	such as .travis, .gitignore files, etc.
-  */
+	app : function() {
+		this.mkdir("app");
+		this.mkdir("app/templates");
+		this.mkdir("app/scripts");
+		this.mkdir("app/styles");
+		this.copy("_config.json", "_config.json");
+		this.copy("_package.json", "package.json");
+		this.copy("_bower.json", "bower.json");
+		this.copy('_Gruntfile.js', 'Gruntfile.js');
+		return this.copy('_index.html', 'index.html');
+	},
+	/*
+	 projectFiles - This method creates any project files needed for the application,
+	 such as .travis, .gitignore files, etc.
+	 */
 
-  projectfiles: function() {
-    this.copy("editorconfig", ".editorconfig");
-    return this.copy("jshintrc", ".jshintrc");
-  },
-  bootstrapRequireJs: function() {
-    if (this.includeRequireJS) {
-      return this.copy('_bootstrap.js', 'app/scripts/_bootstrap.js');
-    }
-  },
-  mainStyleSheet: function() {
-    if (this.includeDefaultStyles) {
-      return this.copy('_main.css', 'app/styles/_main.css');
-    }
-  }
+	projectfiles : function() {
+		this.copy("editorconfig", ".editorconfig");
+		return this.copy("jshintrc", ".jshintrc");
+	},
+	bootstrapRequireJs : function() {
+		if (this.includeRequireJS) {
+			return this.copy('_bootstrap.js', 'app/scripts/_bootstrap.js');
+		}
+	},
+	mainStyleSheet : function() {
+		if (this.includeDefaultStyles) {
+			return this.copy('_main.css', 'app/styles/_main.css');
+		}
+	}
 });
 
-module.exports = JsblogGenerator;
+module.exports = JsblogGenerator; 
