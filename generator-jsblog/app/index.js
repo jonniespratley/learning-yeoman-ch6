@@ -63,6 +63,7 @@
       this.copy("jshintrc", ".jshintrc");
       this.copy("_package.json", "package.json");
       this.copy("_bower.json", "bower.json");
+      this.copy(".bowerrc", ".bowerrc");
       return this.copy("_Gruntfile.js", "Gruntfile.js");
     },
     bowerInstaller: function() {

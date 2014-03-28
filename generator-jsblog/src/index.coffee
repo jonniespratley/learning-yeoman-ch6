@@ -80,8 +80,15 @@ Generator = yeoman.generators.Base.extend(
 	projectfiles: ->
 		@copy "editorconfig", ".editorconfig"
 		@copy "jshintrc", ".jshintrc"
+		
+		#Custom package
 		@copy "_package.json", "package.json"
+		
+		#Custom libs
 		@copy "_bower.json", "bower.json"
+		@copy ".bowerrc", ".bowerrc"
+		
+		#Custom tasks
 		@copy "_Gruntfile.js", "Gruntfile.js"
 
 	#Lets add jquery and some others to the bower installer
