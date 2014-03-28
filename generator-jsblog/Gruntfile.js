@@ -34,7 +34,7 @@ module.exports = function(grunt) {'use strict';
 
 		},
 		nodeunit : {
-			files : ['test/**/*_test.js']
+			files : ['test/**/*.js']
 		},
 		coffee : {
 			compile : {
