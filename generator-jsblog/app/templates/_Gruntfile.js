@@ -9,10 +9,14 @@ var mountFolder = function(connect, dir) {
 };
 
 module.exports = function(grunt) {
-	// load all grunt tasks
-	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-	grunt.initConfig({
+    // load all grunt tasks matching the `grunt-*` pattern
+    require('load-grunt-tasks')(grunt);
+
+    // require it at the top and pass in the grunt instance
+    require('time-grunt')(grunt);
+
+    grunt.initConfig({
 		watch : {
 			options : {
 				nospawn : true,

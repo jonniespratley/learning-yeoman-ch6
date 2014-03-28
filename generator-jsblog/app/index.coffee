@@ -85,7 +85,7 @@ JsblogGenerator = yeoman.generators.Base.extend(
 		@mkdir "app/templates"
 		@mkdir "app/scripts"
 		@mkdir "app/styles"
-		@copy "_config.json", "_config.json"
+		@copy "_config.json", "config.json"
 		@copy "_package.json", "package.json"
 		@copy "_bower.json", "bower.json"
 		@copy '_Gruntfile.js', 'Gruntfile.js'
@@ -101,58 +101,11 @@ JsblogGenerator = yeoman.generators.Base.extend(
 	
 	bootstrapRequireJs: -> 
 		if @includeRequireJS
-			@copy '_bootstrap.js', 'app/scripts/_bootstrap.js'
+			@copy '_main.js', 'app/scripts/main.js'
 	
 	mainStyleSheet: ->
 		if @includeDefaultStyles
-			@copy '_main.css', 'app/styles/_main.css'
+			@copy '_main.css', 'app/styles/main.css'
 	
-	writeIndex = ->
-				# prepare default content text
-				defaults = [
-					"HTML5 Boilerplate"
-					"Bootstrap"
-				]
-				contentText = [
-					" <div class=\"container\">"
-					"						 <div class=\"hero-unit\">"
-					"								 <h1>Allo!</h1>"
-					"								 <p>You now have</p>"
-					"								 <ul>"
-				]
-				unless @includeRequireJS
-					@indexFile = @appendScripts(@indexFile, "scripts/main.js", [
-						"components/jquery/jquery.js"
-						"scripts/main.js"
-					])
-					@indexFile = @appendFiles(
-						html: @indexFile
-						fileType: "js"
-						optimizedPath: "scripts/coffee.js"
-						sourceFileList: ["scripts/hello.js"]
-						searchPath: ".tmp"
-					)
-				if @includeRequireJS
-					defaults.push "RequireJS"
-				else
-					@mainJsFile = "console.log('Allo!');"
-
-				# iterate over defaults and create content string
-				defaults.forEach (el) ->
-					contentText.push "										<li>" + el + "</li>"
-					return
-
-				contentText = contentText.concat([
-					"								 </ul>"
-					"								 <p>installed.</p>"
-					"								 <h3>Enjoy coding! - Yeoman</h3>"
-					"						 </div>"
-					"				 </div>"
-					""
-				])
-
-				# append the default content
-				@indexFile = @indexFile.replace("<body>", "<body>\n" + contentText.join("\n"))
-				return
 )
 module.exports = JsblogGenerator

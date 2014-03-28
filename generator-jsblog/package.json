@@ -1,7 +1,7 @@
 {
   "name": "generator-jsblog",
   "version": "0.0.1",
-  "description": "Yeoman generator",
+  "description": "This is a custom Yeoman generator that creates a simple HTML blog site.",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "jonniespratley/generator-jsblog",
