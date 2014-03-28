@@ -25,7 +25,7 @@
     var done, prompts;
     done = this.async();
     this.log(this.yeoman);
-    this.log(chalk.magenta('You are using the JS Blog Yeoman generator.'));
+    this.log(chalk.yellow('You are using the JS Blog Yeoman generator.'));
     prompts = [
       {
         type: 'input',

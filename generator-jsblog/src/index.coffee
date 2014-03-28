@@ -4,9 +4,8 @@ path = require('path')
 yeoman = require('yeoman-generator')
 chalk = require('chalk')
 
-
 # js-blog-generator - This is an example generator.
-module.exports = JsblogGenerator = yeoman.generators.Base.extend();
+module.exports = JsblogGenerator = yeoman.generators.Base.extend()
 
 #	 init - This method initializes the generator by loading the package.json file
 #	 and adding an event listener to the 'end' event of the generator.	 
@@ -19,7 +18,7 @@ JsblogGenerator::init = ->
 JsblogGenerator::askFor = ->
 	done = @async()
 	@log @yeoman
-	@log chalk.magenta('You are using the JS Blog Yeoman generator.')
+	@log chalk.yellow('You are using the JS Blog Yeoman generator.')
 	
 	prompts = [
 			type: 'input'
@@ -57,7 +56,6 @@ JsblogGenerator::appFolders = ->
 	@mkdir 'app/images'
 	@mkdir 'app/scripts'
 	@mkdir 'app/styles'
-	
 	
 #appFiles - Copy all of the application specific files.
 JsblogGenerator::appFiles = ->
