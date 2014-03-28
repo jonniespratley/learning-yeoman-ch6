@@ -1,6 +1,6 @@
 (function() {
   "use strict";
-  var JsblogGenerator, chalk, path, util, yeoman;
+  var Generator, JsblogGenerator, chalk, path, util, yeoman;
 
   JsblogGenerator = void 0;
 
@@ -20,7 +20,7 @@
 
   chalk = require("chalk");
 
-  JsblogGenerator = yeoman.generators.Base.extend({
+  Generator = yeoman.generators.Base.extend({
     init: function() {
       this.pkg = require("../package.json");
       return this.on("end", function() {
@@ -35,35 +35,18 @@
       prompts = void 0;
       done = this.async();
       this.log(this.yeoman);
-      this.log(chalk.magenta("You're using the fantastic Jsblog generator."));
+      this.log(chalk.magenta("You're using the JS Blog Yeoman generator."));
       prompts = [
         {
-          type: "confirm",
-          name: "someOption",
-          message: "Would you like to enable this option?",
-          "default": true
-        }, {
           type: "input",
           name: "blogName",
-          message: "What is the name of your blog?",
-          "default": "Sample Blog"
-        }, {
-          type: "confirm",
-          name: "includeDefaultStyles",
-          message: "Would you like to include some default styles (Including Bootstrap)?",
-          "default": false
-        }, {
-          type: "confirm",
-          name: "includeRequireJS",
-          message: "Would you like to include RequireJS (for AMD support)?",
-          "default": false
+          message: "What is the name of your blog",
+          "default": "YeomanBlog"
         }
       ];
       return this.prompt(prompts, (function(props) {
-        this.someOption = props.someOption;
-        this.includeRequireJS = props.includeRequireJS;
         this.blogName = props.blogName;
-        done();
+        return done();
       }).bind(this));
     },
     app: function() {
@@ -71,28 +54,24 @@
       this.mkdir("app/templates");
       this.mkdir("app/scripts");
       this.mkdir("app/styles");
-      this.copy("_config.json", "_config.json");
-      this.copy("_package.json", "package.json");
-      this.copy("_bower.json", "bower.json");
-      this.copy("_Gruntfile.js", "Gruntfile.js");
-      return this.copy("_index.html", "index.html");
+      this.copy("_index.html", "app/index.html");
+      this.copy("_main.js", "app/scripts/main.js");
+      return this.copy("_main.css", "app/styles/main.css");
     },
     projectfiles: function() {
       this.copy("editorconfig", ".editorconfig");
-      return this.copy("jshintrc", ".jshintrc");
+      this.copy("jshintrc", ".jshintrc");
+      this.copy("_package.json", "package.json");
+      this.copy("_bower.json", "bower.json");
+      return this.copy("_Gruntfile.js", "Gruntfile.js");
     },
-    bootstrapRequireJs: function() {
-      if (this.includeRequireJS) {
-        return this.copy("_bootstrap.js", "app/scripts/_bootstrap.js");
-      }
-    },
-    mainStyleSheet: function() {
-      if (this.includeDefaultStyles) {
-        return this.copy("_main.css", "app/styles/_main.css");
-      }
+    bowerInstaller: function() {
+      return this.bowerInstall(['jquery', 'bootstrap'], {
+        save: true
+      });
     }
   });
 
-  module.exports = JsblogGenerator;
+  module.exports = Generator;
 
 }).call(this);

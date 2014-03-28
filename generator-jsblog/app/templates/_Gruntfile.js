@@ -26,13 +26,20 @@ module.exports = function(grunt) {
 		connect : {
 			options : {
 				port : 9000,
+				base: './',
+				debug: true,
+				useAvailablePort: true,
 				// change this to '0.0.0.0' to access the server from outside
-				hostname : 'localhost'
+				hostname : '127.0.0.1'
 			},
 			livereload : {
 				options : {
 					middleware : function(connect) {
-						return [lrSnippet, mountFolder(connect, '.')];
+						return [
+							lrSnippet, 
+							mountFolder(connect, './bower_components'),
+							mountFolder(connect, './')
+						];
 					}
 				}
 			}
@@ -41,10 +48,36 @@ module.exports = function(grunt) {
 			server : {
 				path : 'http://localhost:<%%= connect.options.port %>'
 			}
+		},
+
+		bowerInstall : {
+			target : {
+				// Point to the files that should be updated when
+				src : [
+				'app/**/*.html',
+				// .html support...
+				//'app/views/**/*.jade',
+				// .jade support...
+				'app/styles/main.css',
+				// .scss & .sass support...
+				//'app/config.yml' 
+				// and .yml & .yaml support out of the box!
+				],
+
+				// Optional:
+				// ---------
+				cwd : '',
+				dependencies : true,
+				devDependencies : false,
+				exclude : [],
+				fileTypes : {},
+				ignorePath : ''
+			}
 		}
+
 	});
 
-	grunt.registerTask('server', ['build', 'connect:livereload', 'open', 'watch']);
+	grunt.registerTask('server', ['bowerInstall', 'build', 'connect:livereload', 'open', 'watch']);
 
 	grunt.registerTask('build', 'Building the project.', function() {
 		console.log('running build');
