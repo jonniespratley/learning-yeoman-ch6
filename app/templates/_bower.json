@@ -1,0 +1,16 @@
+{
+	"name": "<%= _.slugify(blogName) %>",
+	"private": true
+	"version": "0.0.0",
+	"main": [
+		"app/scripts/main.js",
+		"app/styles/main.css"
+	],
+	"ignore": [
+		"./node_modules",
+		".temp",
+		"app/bower_components",
+		"app/images"
+	].
+	"dependencies": {}
+}
