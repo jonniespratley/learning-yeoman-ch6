@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - '0.10'
+before_install:
+  - currentfolder=${PWD##*/}
+  - if [ "$currentfolder" != 'generator-jps-site' ]; then cd .. && eval "mv $currentfolder generator-jps-site" && cd generator-jps-site; fi
+before_script:
+  - 'npm install -g bower grunt-cli'
+  - 'grunt'
