@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/../generator-jps-site/.gitignore" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../generator-jps-site/Gruntfile.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../generator-jps-site/app/index.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../generator-jps-site/package.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../generator-jps-site/page/index.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../generator-jps-site/test/test-creation.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/.editorconfig" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Gruntfile.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/index.js" charset="UTF-8" />
