@@ -4,7 +4,7 @@
 	"description": "Yeoman generator for the Learning Yeoman book Chapter 6: Custom Generators.",
 	"license": "MIT",
 	"main": "app/index.js",
-	"repository": "jonniespratley/generator-jps-site",
+	"repository": "https://github.com/jonniespratley/generator-jps-site",
 	"author": {
 		"name": "Jonnie Spratley",
 		"email": "jonniespratley@me.com",
