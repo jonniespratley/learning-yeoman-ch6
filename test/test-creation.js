@@ -23,7 +23,7 @@ describe('jps-site generator', function() {
       if (err) {
         done(err);
       }
-      this.app = helpers.createGenerator('jps-site:app', ['../../app']);
+      this.app = helpers.createGenerator('jps-site', ['../../app']);
       return done();
     }).bind(this));
   });
